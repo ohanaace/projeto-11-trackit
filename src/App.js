@@ -12,8 +12,8 @@ import { UserContext, TokenContext } from "./context/AuthContext";
 
 
 function App() {
-  const [userData, setUserData] = useState({ name: "", image: "", token: "", habits: [], todayHabits: "", progress: 0 })
-  const [savedToken, setSavedToken] = useState(false)
+  const [userData, setUserData] = useState({ name: "", image: "", token: "", habits: [], todayHabits: [], progress: 0 })
+  const [savedToken, setSavedToken] = useState("")
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>
