@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import TopContainerPage from "./TopContainerPage"
-import MenuContainerPage from "./MenuContainerPage";
-import NoHabit from "../components/NoHabit";
+import TopContainerPage from "../../components/TopContainerPage"
+import MenuContainerPage from "../../components/MenuContainerPage";
+import NoHabit from "./NoHabit";
 import { useState } from "react";
-import HabitForm from "../components/HabitForm";
+import HabitForm from "./HabitForm";
 
 export default function HabitsPage() {
     const [displayForm, setDisplayForm] = useState(false)

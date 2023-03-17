@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import TopContainerPage from "./TopContainerPage"
-import MenuContainerPage from "./MenuContainerPage"
+import TopContainerPage from "../../components/TopContainerPage"
+import MenuContainerPage from "../../components/MenuContainerPage"
 
 export default function HistoryPage() {
     return (

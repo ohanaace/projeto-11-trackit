@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br';
-import TopContainerPage from "./TopContainerPage"
-import MenuContainerPage from "./MenuContainerPage"
-import TodayHabitCard from "../components/TodayHabitCard";
+import TopContainerPage from "../../components/TopContainerPage"
+import MenuContainerPage from "../../components/MenuContainerPage"
+import TodayHabitCard from "./TodayHabitCard";
 
 export default function TodayPage() {
     dayjs.locale('pt-br')

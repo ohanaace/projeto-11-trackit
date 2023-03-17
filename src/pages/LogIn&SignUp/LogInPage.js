@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../assets/Group 8TrackIt.png"
+import logo from "../../assets/Group 8TrackIt.png"
 import { Link } from "react-router-dom";
 
 export default function LogInPage() {

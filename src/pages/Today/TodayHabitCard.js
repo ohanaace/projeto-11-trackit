@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import check from "../assets/Vectorcheckmark.png"
+import check from "../../assets/Vectorcheckmark.png"
 
 export default function TodayHabitCard() {
     const [completed, setCompleted] = useState(false)

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import trashcan from "../assets/Grouptrashcan.png"
-import WEEKDAYS from "../constants/weekdays";
+import trashcan from "../../assets/Grouptrashcan.png"
+import WEEKDAYS from "../../constants/weekdays";
 import HabitDay from "./HabitDay";
 
 export default function HabitCard(){

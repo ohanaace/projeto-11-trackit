@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import WEEKDAYS from "../constants/weekdays";
+import WEEKDAYS from "../../constants/weekdays";
 import WeekButton from "./WeekButton";
 import HabitCard from "./HabitCard"
 
