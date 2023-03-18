@@ -28,8 +28,8 @@ const DayButton = styled.button`
     height: 30px;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
-    background-color: ${(props) =>props.isSelected ? "#D4D4D4" : "#FFFFFF"};
-    color: ${(props) =>props.isSelected ? "#FFFFFF" : "#D4D4D4"};
+    background-color: ${(props) =>props.isSelected ? "#CFCFCF" : "#FFFFFF"};
+    color: ${(props) =>props.isSelected ? "#FFFFFF" : "#CFCFCF"};
     padding: 8px;
     margin: 4px;
     font-family: 'Lexend Deca', sans-serif;

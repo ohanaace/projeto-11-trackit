@@ -12,10 +12,10 @@ export default function HabitDay({day, index, days}) {
 const DayButton = styled.div`
     width: 30px;
     height: 30px;
-    border: 1px solid #D4D4D4;
+    border: 1px solid #CFCFCF;
     border-radius: 5px;
-    background-color:${(props) => props.display? "#D4D4D4" : "#FFFFFF"};
-    color: ${(props) => props.display? "#FFFFFF" : "#D4D4D4"};
+    background-color:${(props) => props.display? "#CFCFCF" : "#FFFFFF"};
+    color: ${(props) => props.display? "#FFFFFF" : "#CFCFCF"};
     padding: 8px;
     margin: 4px;
     font-family: 'Lexend Deca', sans-serif;
