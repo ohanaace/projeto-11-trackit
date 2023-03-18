@@ -4,27 +4,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
 import BASE_URL from "../../constants/url";
-import { TokenContext, UserContext } from "../../context/AuthContext";
+import { TokenContext, UserContext} from "../../context/AuthContext";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function LogInPage() {
-    //adicionar o atributo required dos inputs quando fizer a lógica
-    const { userData, setUserData } = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const { setSavedToken } = useContext(TokenContext)
     const navigate = useNavigate()
+    const {userData, setUserData} = useContext(UserContext)
 
     function logMeIn(e) {
         e.preventDefault()
         setLoading(true)
+
         const body = { email, password }
         const promise = axios.post(`${BASE_URL}auth/login`, body)
             promise.then(res => {
                 console.log(res.data)
-                setSavedToken(res.data.token)
+                const {name, image, email, password, token} = res.data
+                setUserData({...userData, name, image, token})
+                setSavedToken(true)
                 navigate("/hoje")
+                console.log(userData)
             })
             promise.catch(err => {
                 alert(err.response.data.message)

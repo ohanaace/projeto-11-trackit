@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import logo from "../../assets/Group 8TrackIt.png"
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import BASE_URL from "../../constants/url"
 import axios from "axios";
-import { UserContext } from "../../context/AuthContext";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function SignUpPage() {
-    const { userData, setUserData } = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [photoURL, setPhotoURL] = useState("")
@@ -23,7 +21,6 @@ export default function SignUpPage() {
         const promise = axios.post(`${BASE_URL}/auth/sign-up`, body)
         promise.then(res => {
             console.log(res.data)
-            setUserData({...userData, image: photoURL, name: username})
             navigate("/")   
         })
         promise.catch(err => {

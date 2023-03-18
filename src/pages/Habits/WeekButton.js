@@ -1,13 +1,23 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function WeekButton({day, index}) {
+
+export default function WeekButton({day, index, setDays, days, disabled}) {
+    const [isSelected, setIsSelected] = useState(false)
         function selectDay(){
-            setIsSelected(!isSelected)
+            const selectedDay = !isSelected
+            setIsSelected(selectedDay)
+            if(selectedDay){
+                const newHabitDays = [...days, index]
+                setDays(newHabitDays)
+            }else{
+                const copyDayList = [...days]
+                const updatedDayList = copyDayList.filter((id => id !== index))
+                setDays(updatedDayList)
+            }
         }
-        const [isSelected, setIsSelected] = useState(false)
         return (
-        <DayButton data-test="habit-day" onClick={selectDay}  isSelected={isSelected}>
+        <DayButton type={"button"} data-test="habit-day" onClick={selectDay}  isSelected={days.includes(index)} disabled={disabled} >
             {day}
         </DayButton>
     )
