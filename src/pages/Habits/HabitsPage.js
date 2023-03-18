@@ -4,9 +4,11 @@ import MenuContainerPage from "../../components/MenuContainerPage";
 import NoHabit from "./NoHabit";
 import { useState } from "react";
 import HabitForm from "./HabitForm";
+import HabitCard from "./HabitCard"
 
 export default function HabitsPage() {
     const [displayForm, setDisplayForm] = useState(false)
+    const [createdHabits, setCreatedHabits] = useState([])
     return (
         <>
             <TopContainerPage />
@@ -15,8 +17,9 @@ export default function HabitsPage() {
                     <h2>Meus hábitos</h2>
                     <ButtonOptions data-test="habit-create-btn" onClick={() => setDisplayForm(true)}>+</ButtonOptions>
                 </TitleContainer>
-                <HabitForm displayForm={displayForm} setDisplayForm={setDisplayForm} />
-                <NoHabit />
+                <HabitForm displayForm={displayForm} setDisplayForm={setDisplayForm} setCreatedHabits={setCreatedHabits} />
+                <NoHabit createdHabits={createdHabits}/>
+                {createdHabits.map((card) => <HabitCard key={card.id} id={card.id} name={card.name} days={card.days}/>)}
             </HabitContainerPage>
             <MenuContainerPage />
         </>
@@ -25,7 +28,9 @@ export default function HabitsPage() {
 
 const HabitContainerPage = styled.main`
 width: 100%;
-height: 100vh;
+height: fit-content;
+min-height: 150vh;
+overflow: auto;
 display: flex;
 flex-direction: column;
 align-items: center;

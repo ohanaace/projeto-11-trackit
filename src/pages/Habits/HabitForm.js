@@ -1,34 +1,63 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import WEEKDAYS from "../../constants/weekdays";
 import WeekButton from "./WeekButton";
-import HabitCard from "./HabitCard"
 import axios from "axios";
 import { UserContext } from "../../context/AuthContext";
 import BASE_URL from "../../constants/url"
 import { ThreeDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 
 
-export default function HabitForm({ displayForm, setDisplayForm }) {
-    const {userData, setUserData} = useContext(UserContext)
+export default function HabitForm({ displayForm, setDisplayForm, setCreatedHabits }) {
+    const { userData, setUserData } = useContext(UserContext)
+    const { habits } = useContext(UserContext).userData;
+    const config = { headers: { Authorization: `Bearer ${userData.token}` } }
     const [name, setName] = useState("")
     const [days, setDays] = useState([])
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        async function fetchHabits(){
+            const promise = await axios.get(`${BASE_URL}habits`, config)
+            try {
+                setCreatedHabits(promise.data)
+                console.log(promise.data)
+            } catch (error) {
+                alert(error.response.data)
+                navigate("/")
+            }
+        }
+        fetchHabits()
+    }, [userData.habits])
+
     function submitHabit(e) {
         e.preventDefault()
         setLoading(true)
         console.log(userData)
-        const body = {name, days}
-        const config = {headers: {Authorization: `Bearer ${userData.token}`}}
+        const body = { name, days }
         const promise = axios.post(`${BASE_URL}habits`, body, config)
-        promise.then(res => console.log(res.data))
+        promise.then(res => {
+            console.log(res.data)
+            const {id, name, days}  = res.data
+            setLoading(false)
+            setName("")
+            setDays([])
+            setUserData({ ...userData, habits: [...habits, {id, name, days}] })
+        })
+            setDisplayForm(false)
+
         promise.catch(err => {
             console.log(err.response.data)
             alert(err.response.data.message)
             setName("")
             setLoading(false)
-            setDays([])})
+            setDays([])
+        })
+        console.log(userData.habits)
     }
     return (
         <AddHabit data-test="habit-create-container" displayForm={displayForm} onSubmit={submitHabit}>
@@ -39,7 +68,7 @@ export default function HabitForm({ displayForm, setDisplayForm }) {
                 value={name}
                 onChange={e => setName(e.target.value)}
                 disabled={loading}
-                
+
 
             />
             <div>
@@ -48,11 +77,10 @@ export default function HabitForm({ displayForm, setDisplayForm }) {
             </div>
             <HabitsActions>
                 <CancelButton data-test="habit-create-cancel-btn" type={"button"} onClick={() => setDisplayForm(false)} disabled={loading}>Cancelar</CancelButton>
-                <SaveButton data-test="habit-create-save-btn" type={"submit"}>
-                {loading ? <ThreeDots type="ThreeDots" color={"#FFF"} height={50} width={50}/> : "Salvar"}
-                    </SaveButton>
+                <SaveButton data-test="habit-create-save-btn" type={"submit"} disabled={loading}>
+                    {loading ? <ThreeDots type="ThreeDots" color={"#FFF"} height={50} width={50} /> : "Salvar"}
+                </SaveButton>
             </HabitsActions>
-            {/* <HabitCard /> */}
         </AddHabit>
     )
 }
