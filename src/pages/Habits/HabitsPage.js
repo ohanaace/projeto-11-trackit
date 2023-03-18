@@ -8,7 +8,7 @@ import HabitCard from "./HabitCard"
 
 export default function HabitsPage() {
     const [displayForm, setDisplayForm] = useState(false)
-    const [createdHabits, setCreatedHabits] = useState([])
+    const [createdHabits, setCreatedHabits] = useState([]) 
     return (
         <>
             <TopContainerPage />
