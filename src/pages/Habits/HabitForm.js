@@ -47,8 +47,9 @@ export default function HabitForm({ displayForm, setDisplayForm, setCreatedHabit
             setName("")
             setDays([])
             setUserData({ ...userData, habits: [...habits, {id, name, days}] })
-        })
             setDisplayForm(false)
+        }
+        )
 
         promise.catch(err => {
             console.log(err.response.data)
