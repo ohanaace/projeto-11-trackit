@@ -2,19 +2,19 @@ import { useState } from "react";
 import styled from "styled-components";
 import check from "../../assets/Vectorcheckmark.png"
 
-export default function TodayHabitCard() {
+export default function TodayHabitCard({id, name, done, currentSequence, highestSequence}) {
     const [completed, setCompleted] = useState(false)
     return (
         <TodayCard data-test="today-habit-container">
             <div>
                 <h3 data-test="today-habit-name" >
-                    Ler 1 capítulo de livro
+                    {name}
                 </h3>
                 <p data-test="today-habit-sequence" >
-                    Sequência atual: 3 dias
+                    Sequência atual: {currentSequence} dias
                 </p>
                 <p data-test="today-habit-record" >
-                    Seu recorde: 5 dias
+                    Seu recorde: {highestSequence} dias
                 </p>
 
             </div>
@@ -36,6 +36,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 13px;
+margin-bottom: 10px;
 h3{
     font-size: 20px;
     color: #666666;

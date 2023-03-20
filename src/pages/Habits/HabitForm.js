@@ -48,6 +48,7 @@ export default function HabitForm({ displayForm, setDisplayForm, setCreatedHabit
             setDays([])
             setUserData({ ...userData, habits: [...habits, {id, name, days}] })
             setDisplayForm(false)
+            console.log(userData)
         }
         )
 

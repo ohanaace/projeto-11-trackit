@@ -11,7 +11,7 @@ export default function MenuContainerPage() {
             </Link>
             <ProgressBarContainer>
                 <CircularProgressbarWithChildren
-                    value={50}
+                    value={0}
                     background
                     backgroundPadding={6}
                     styles={buildStyles({

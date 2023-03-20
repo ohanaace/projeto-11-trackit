@@ -4,12 +4,30 @@ import 'dayjs/locale/pt-br';
 import TopContainerPage from "../../components/TopContainerPage"
 import MenuContainerPage from "../../components/MenuContainerPage"
 import TodayHabitCard from "./TodayHabitCard";
-
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/AuthContext";
+import axios from "axios";
+import BASE_URL from "../../constants/url"
 export default function TodayPage() {
+    const {userData, setUserData} = useContext(UserContext)
+    const { todayHabits } = useContext(UserContext).userData;
+    const config = { headers: { Authorization: `Bearer ${userData.token}` } }
     dayjs.locale('pt-br')
     const day = dayjs()
     const today = day.format('dddd').split("-")[0]
     const capitalToday = today.charAt(0).toUpperCase() + today.slice(1)
+    useEffect(()=> {
+        async function fetchDayHabits() {
+            const promise = await axios.get(`${BASE_URL}habits/today`, config)
+            try {
+                console.log(promise.data)
+                setUserData({...userData, todayHabits: promise.data})
+            } catch (error) {
+                console.log(error.response.data)
+            }
+        }
+        fetchDayHabits()
+    }, [])
     return (
         <>
             <TopContainerPage />
@@ -22,7 +40,7 @@ export default function TodayPage() {
                         Nenhum hábito concluído ainda
                     </p>
                 </TitleContainer>
-                <TodayHabitCard></TodayHabitCard>
+                {todayHabits.map((habit) => <TodayHabitCard key={habit.id} id={habit.id} name={habit.name} done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}/>) }
             </TodayHabit>
             <MenuContainerPage />
         </>
