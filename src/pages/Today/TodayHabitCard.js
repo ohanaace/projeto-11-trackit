@@ -12,14 +12,9 @@ export default function TodayHabitCard({ id, name, done, currentSequence, highes
     const {progress} = useContext(UserContext).userData
     const config = { headers: { Authorization: `Bearer ${userData.token}` } }
 
-    function calcProgress(){
-        const completedTasks = todayHabits.filter((com) => com.done === true)
-        console.log(completedTasks.length)
-        let myProgress = (completedTasks.length / todayHabits.length) * 100
-        console.log(myProgress)
-        setUserData({...userData, progress: myProgress})
-        setControl(!control)
-    }
+ function calcProgress(){
+    setControl(!control)
+ }
     
   async  function checkHabit(id) {
        await axios.post(`${BASE_URL}habits/${id}/check`, {}, config)
@@ -43,8 +38,8 @@ export default function TodayHabitCard({ id, name, done, currentSequence, highes
                 console.log(res)
                 console.log(userData)
                 console.log("desmarcou hábito")
+                
                 calcProgress()
-                setControl(!control)
             })
             .catch(err => {
                 alert(err.status.code)

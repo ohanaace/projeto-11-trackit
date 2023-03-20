@@ -7,17 +7,16 @@ import HistoryPage from "./pages/History/HistoryPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle/GlobalStyle";
 import MyStyle from "./GlobalStyle/MyStyle";
-import { UserContext, TokenContext } from "./context/AuthContext";
+import { UserContext } from "./context/AuthContext";
 
 
 
 function App() {
   const [userData, setUserData] = useState({ name: "", image: "", token: "", habits: [], todayHabits: [], progress: 0 })
-  const [savedToken, setSavedToken] = useState(false)
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>
-      <TokenContext.Provider value={{ savedToken, setSavedToken }}>
+  
         <BrowserRouter>
           <GlobalStyle />
           <MyStyle />
@@ -28,8 +27,7 @@ function App() {
             <Route path="/hoje" element={<TodayPage />} />
             <Route path="/historico" element={<HistoryPage />} />
           </Routes>
-        </BrowserRouter>
-      </TokenContext.Provider>
+        </BrowserRouter>  
     </UserContext.Provider>
   );
 }

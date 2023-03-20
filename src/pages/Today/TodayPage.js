@@ -9,7 +9,7 @@ import { UserContext } from "../../context/AuthContext";
 import axios from "axios";
 import BASE_URL from "../../constants/url"
 export default function TodayPage() {
-    const {userData, setUserData} = useContext(UserContext)
+    const { userData, setUserData } = useContext(UserContext)
     const { todayHabits } = useContext(UserContext).userData;
     const config = { headers: { Authorization: `Bearer ${userData.token}` } }
     dayjs.locale('pt-br')
@@ -17,12 +17,14 @@ export default function TodayPage() {
     const today = day.format('dddd').split("-")[0]
     const capitalToday = today.charAt(0).toUpperCase() + today.slice(1)
     const [control, setControl] = useState(false)
-    useEffect(()=> {
+    useEffect(() => {
         async function fetchDayHabits() {
             const promise = await axios.get(`${BASE_URL}habits/today`, config)
             try {
                 console.log(promise.data)
-                setUserData({...userData, todayHabits: promise.data})
+                const doneHabits = promise.data.filter((com) => com.done === true)
+                let myProgress = (doneHabits.length / todayHabits.length) * 100;
+                setUserData({ ...userData, todayHabits: promise.data, progress: myProgress })
             } catch (error) {
                 console.log(error.response.data)
             }
@@ -38,10 +40,10 @@ export default function TodayPage() {
                         {capitalToday}, {day.format('DD/MM')}
                     </h2>
                     <p data-test="today-counter" color={userData.progress !== 0} >
-                        {userData.progress !== 0 ? `${userData.progress}% de hábitos concluídos` : "Nenhum hábito concluído ainda"}
+                        {userData.progress !== 0 ? `${userData.progress}% dos hábitos concluídos` : "Nenhum hábito concluído ainda"}
                     </p>
                 </TitleContainer>
-                {todayHabits.map((habit) => <TodayHabitCard key={habit.id} control={control} setControl={setControl} id={habit.id} name={habit.name} done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}/>) }
+                {todayHabits.map((habit) => <TodayHabitCard key={habit.id} control={control} setControl={setControl} id={habit.id} name={habit.name} done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence} />)}
             </TodayHabit>
             <MenuContainerPage />
         </>
@@ -74,6 +76,6 @@ p{
     font-family: 'Lexend Deca', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    color: ${(props) => props.color? "#8FC549" : "#BABABA" };
+    color: ${(props) => props.color ? "#8FC549" : "#BABABA"};
 }
 `

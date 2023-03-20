@@ -4,14 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
 import BASE_URL from "../../constants/url";
-import { TokenContext, UserContext} from "../../context/AuthContext";
+import { UserContext} from "../../context/AuthContext";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function LogInPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const { setSavedToken } = useContext(TokenContext)
     const navigate = useNavigate()
     const {userData, setUserData} = useContext(UserContext)
 
@@ -25,7 +24,6 @@ export default function LogInPage() {
                 console.log(res.data)
                 const {name, image, email, password, token} = res.data
                 setUserData({...userData, name, image, token})
-                setSavedToken(true)
                 navigate("/hoje")
                 console.log(userData)
             })
