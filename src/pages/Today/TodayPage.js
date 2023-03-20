@@ -16,6 +16,7 @@ export default function TodayPage() {
     const day = dayjs()
     const today = day.format('dddd').split("-")[0]
     const capitalToday = today.charAt(0).toUpperCase() + today.slice(1)
+    const [control, setControl] = useState(false)
     useEffect(()=> {
         async function fetchDayHabits() {
             const promise = await axios.get(`${BASE_URL}habits/today`, config)
@@ -27,7 +28,7 @@ export default function TodayPage() {
             }
         }
         fetchDayHabits()
-    }, [])
+    }, [control, userData.progress])
     return (
         <>
             <TopContainerPage />
@@ -36,11 +37,11 @@ export default function TodayPage() {
                     <h2 data-test="today">
                         {capitalToday}, {day.format('DD/MM')}
                     </h2>
-                    <p data-test="today-counter">
-                        Nenhum hábito concluído ainda
+                    <p data-test="today-counter" color={userData.progress !== 0} >
+                        {userData.progress !== 0 ? `${userData.progress}% de hábitos concluídos` : "Nenhum hábito concluído ainda"}
                     </p>
                 </TitleContainer>
-                {todayHabits.map((habit) => <TodayHabitCard key={habit.id} id={habit.id} name={habit.name} done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}/>) }
+                {todayHabits.map((habit) => <TodayHabitCard key={habit.id} control={control} setControl={setControl} id={habit.id} name={habit.name} done={habit.done} currentSequence={habit.currentSequence} highestSequence={habit.highestSequence}/>) }
             </TodayHabit>
             <MenuContainerPage />
         </>
@@ -73,6 +74,6 @@ p{
     font-family: 'Lexend Deca', sans-serif;
     font-weight: 400;
     font-size: 18px;
-    color: #BABABA;
+    color: ${(props) => props.color? "#8FC549" : "#BABABA" };
 }
 `

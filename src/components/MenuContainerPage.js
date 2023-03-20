@@ -1,9 +1,12 @@
 import { buildStyles, CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { UserContext } from "../context/AuthContext";
 import styled from "styled-components";
 
 export default function MenuContainerPage() {
+    const {userData, setUserData} = useContext(UserContext)
+    const {progress} = useContext(UserContext).userData
     return (
         <MenuContainer data-test="menu">
             <Link to={"/habitos"}>
@@ -11,7 +14,7 @@ export default function MenuContainerPage() {
             </Link>
             <ProgressBarContainer>
                 <CircularProgressbarWithChildren
-                    value={0}
+                    value={progress}
                     background
                     backgroundPadding={6}
                     styles={buildStyles({

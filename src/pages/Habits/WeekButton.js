@@ -26,10 +26,10 @@ export default function WeekButton({day, index, setDays, days, disabled}) {
 const DayButton = styled.button`
     width: 30px;
     height: 30px;
-    border: 1px solid #D4D4D4;
+    border: 1px solid ${(props) => props.isSelected? "#CFCFCF" : "#D4D4D4"};
     border-radius: 5px;
     background-color: ${(props) =>props.isSelected ? "#CFCFCF" : "#FFFFFF"};
-    color: ${(props) =>props.isSelected ? "#FFFFFF" : "#CFCFCF"};
+    color: ${(props) =>props.isSelected ? "#FFFFFF" : "#DBDBDB"};
     padding: 8px;
     margin: 4px;
     font-family: 'Lexend Deca', sans-serif;
